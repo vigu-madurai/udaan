@@ -48,7 +48,7 @@ function App() {
     if (accidentList.length) {
       return renderAlist();
     }
-  }, [accidentList])
+  }, [accidentList]);
 
   useEffect(() => {
     if (selectedDate) {
@@ -71,11 +71,7 @@ function App() {
             {renderAlist()}
           </div>) : "Loading"
         }
-        {accidentList.length ? <div className="crash-list-wrapper">
-          {renderAlist()}
-        </div> : ""}
       </div>
-
       <ViewDetails />
     </div>
   );
