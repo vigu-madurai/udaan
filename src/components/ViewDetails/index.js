@@ -1,17 +1,11 @@
 import React, { useState } from 'react';
 
-const ViewDetails = ({accidentList}) => {
-    // const [date, setDate] = useState(null);
-    // const handleListAccident = () => {
-    //     if (date) {
-    //         setDate(date);
-    //         handleSelectedDate(date)
-    //     }
-    // }
+const ViewDetails = ({ data }) => {
+    
     return (
         <>
             <div className="view-wrapper">
-                VIew wrapper
+                {JSON.stringify(data)}
             </div>
         </>
     )

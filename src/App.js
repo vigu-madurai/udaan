@@ -9,6 +9,7 @@ function App() {
   const [selectedDate, setSelectedDate] = useState(null);
   const [accidentList, setAccidentList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [accident, setAccident] = useState("");
 
   const fetchTrafficDetails = () => {
     axios.get(baseUrl, {
@@ -36,12 +37,14 @@ function App() {
   const renderAlist = () => {
     console.log("renderAlist", accidentList)
     return accidentList.map((accident) => {
-      return (<div key={accident.collision_id} className="card-wrapper">
-        <div className="car-names">Crashed Cars Type: {accident.vehicle_type_code1} & {accident.vehicle_type_code2}
+      return (
+        <div key={accident.collision_id} className="card-wrapper" onClick={() => { setAccident(accident) }}>
+          <div className="car-names">Crashed Cars Type: {accident.vehicle_type_code1} & {accident.vehicle_type_code2}
+          </div>
+          <div className="details"><div>{accident.crash_date}
+          </div> {accident.crash_time}</div>
         </div>
-        <div className="details"><div>{accident.crash_date}
-        </div> {accident.crash_time}</div>
-      </div>)
+      )
     })
   }
   useEffect(() => {
@@ -61,7 +64,7 @@ function App() {
     setIsLoading(true);
     fetchTrafficDetails();
   }
-
+  console.log(accident)
   return (
     <div className="App">
       <div className="filter-wrapper">
@@ -72,7 +75,7 @@ function App() {
           </div>) : "Loading"
         }
       </div>
-      <ViewDetails />
+      {accident ? <ViewDetails data={accident} /> : ""}
     </div>
   );
 }
