@@ -71,6 +71,13 @@
 	color: white;
 }
 
+.limit-wrapper {
+	display: block;
+	margin: 10px;
+	width: 90%;
+	text-align: right;
+}
+
 .pagination-wrapper input, .limit-wrapper input {
 	background: inherit;
 	border: 0;
