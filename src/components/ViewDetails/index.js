@@ -15,7 +15,7 @@ const ViewDetails = ({ data }) => {
                     {keys.map((el, index) => {
                         return (<div className="row-wrapper" key={"view-" + index}>
                             <div className="title">{replaceUnderscore(el)}:{" "}</div>
-                            <div>{data[el]}</div>
+                            {typeof data[el] !== "string" ? JSON.stringify(data[el]).replace(/\{"\}/g, ""):data[el] }
                         </div>)
                     })}
                 </div>
