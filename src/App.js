@@ -8,6 +8,7 @@ import { baseUrl } from './configs/apiList';
 function App() {
   const [selectedDate, setSelectedDate] = useState(null);
   const [accidentList, setAccidentList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchTrafficDetails = () => {
     axios.get(baseUrl, {
@@ -19,29 +20,34 @@ function App() {
       .then(function (response) {
         if (response.status === 200) {
           setAccidentList(response.data);
-
+        } else {
+          setAccidentList([])
         }
-        console.log(response);
       })
       .catch(function (error) {
         console.log(error);
         setAccidentList([]);
+      })
+      .then(function () {
+        setIsLoading(false);
       });
   }
 
   const renderAlist = () => {
     console.log("renderAlist", accidentList)
-        return accidentList.map((accident) => {
-            return (<div key={accident.collision_id} className="card-wrapper">
-                <div className="car-names">Crashed Cars Type: {accident.vehicle_type_code1} & {accident.vehicle_type_code2}
-                </div>
-                <div className="details"><div>{accident.crash_date}
-                </div> {accident.crash_time}</div>
-            </div>)
-        })
-}
+    return accidentList.map((accident) => {
+      return (<div key={accident.collision_id} className="card-wrapper">
+        <div className="car-names">Crashed Cars Type: {accident.vehicle_type_code1} & {accident.vehicle_type_code2}
+        </div>
+        <div className="details"><div>{accident.crash_date}
+        </div> {accident.crash_time}</div>
+      </div>)
+    })
+  }
   useEffect(() => {
-    renderAlist();
+    if (accidentList.length) {
+      return renderAlist();
+    }
   }, [accidentList])
 
   useEffect(() => {
@@ -52,6 +58,7 @@ function App() {
 
   const handleSelectedDate = (date) => {
     setSelectedDate(date);
+    setIsLoading(true);
     fetchTrafficDetails();
   }
 
@@ -59,12 +66,17 @@ function App() {
     <div className="App">
       <div className="filter-wrapper">
         <ListAccident handleSelectedDate={handleSelectedDate} />
-        {accidentList.length ? <div className="crash-list-wrapper">
+        {!isLoading ?
+          (<div className="crash-list-wrapper">
             {renderAlist()}
-        </div>: ""}
+          </div>) : "Loading"
+        }
+        {accidentList.length ? <div className="crash-list-wrapper">
+          {renderAlist()}
+        </div> : ""}
       </div>
 
-      <ViewDetails  />
+      <ViewDetails />
     </div>
   );
 }
