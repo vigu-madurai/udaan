@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import "./index.css";
 
 const ListAccident = ({ handleSelectedDate }) => {
     const [date, setDate] = useState(null);

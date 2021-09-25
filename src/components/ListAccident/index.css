@@ -1,0 +1,11 @@
+.list-wrapper {
+	margin: 10px auto;
+	border-bottom: solid 1px #333;
+	padding: 10px 0;
+}
+
+.inputs {
+	text-align: center;
+	padding: 6px 12px;
+	margin: 5px;
+}
